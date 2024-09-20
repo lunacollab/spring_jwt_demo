@@ -53,4 +53,12 @@ public class Users {
      inverseJoinColumns = @JoinColumn(name="RoleId"))
     Set<Roles> listRoles = new HashSet<>();
 
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.created == null) {
+            this.created = new Date();
+        }
+        this.userStatus = true;
+    }
 }

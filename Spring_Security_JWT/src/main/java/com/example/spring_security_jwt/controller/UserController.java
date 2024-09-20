@@ -39,7 +39,7 @@ public class UserController {
     AuthenticationManager authenticationManager;
     JwtTokenProvider jwtTokenProvider;
     PasswordEncoder passwordEncoder;
-    private final CustomUserDetailsService customUserDetailsService;
+    CustomUserDetailsService customUserDetailsService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest){
