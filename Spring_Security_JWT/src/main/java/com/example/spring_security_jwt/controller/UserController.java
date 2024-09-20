@@ -60,6 +60,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
         user.setEmail(signupRequest.getEmail());
         user.setAddress(signupRequest.getAddress());
+        user.setPhone(signupRequest.getPhone());
         try {
             user.setCreated(dateFormat.parse(dateNow));
         } catch (ParseException e) {
