@@ -22,9 +22,9 @@ public class SignupRequest {
     String email;
     String phone;
     String address;
+
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     Date created;
     boolean userStatus;
     Set<String> listRoles;
-
 }

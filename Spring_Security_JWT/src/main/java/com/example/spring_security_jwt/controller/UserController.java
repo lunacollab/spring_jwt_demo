@@ -23,6 +23,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,11 +52,20 @@ public class UserController {
         if(userService.existsByEmail(signupRequest.getEmail())){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date currentDate = new Date();
+        String dateNow = dateFormat.format(currentDate);
         Users user = new Users();
         user.setUserName(signupRequest.getUserName());
         user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
         user.setEmail(signupRequest.getEmail());
         user.setAddress(signupRequest.getAddress());
+        try {
+            user.setCreated(dateFormat.parse(dateNow));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        user.setUserStatus(true);
         Set<String> strRoles = signupRequest.getListRoles();
         Set<Roles> listRoles = new HashSet<>();
         if(strRoles != null){
